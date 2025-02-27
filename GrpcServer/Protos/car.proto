@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcCarService";
+
+package car;
+
+message Car {
+  string id = 1;
+  string model = 2;
+  string color = 3;
+  int32 year = 4;
+}
+
+message CarIdRequest {
+  string id = 1;
+}
+
+message CarListResponse {
+  repeated Car cars = 1;
+}
+
+message CarResponse {
+  Car car = 1;
+}
+
+message Empty {}
+
+service CarService {
+  rpc CreateCar(Car) returns (CarResponse);
+  rpc GetCarById(CarIdRequest) returns (CarResponse);
+  rpc GetAllCars(Empty) returns (CarListResponse);
+  rpc UpdateCar(Car) returns (CarResponse);
+  rpc DeleteCar(CarIdRequest) returns (Empty);
+}
